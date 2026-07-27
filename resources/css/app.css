@@ -1,0 +1,376 @@
+@import 'tailwindcss';
+
+@import 'tw-animate-css';
+
+@source '../views';
+@source '../js';
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+    --font-sans:
+        'Instrument Sans', ui-sans-serif, system-ui, sans-serif,
+        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+        'Noto Color Emoji';
+
+    --radius-lg: var(--radius);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-sm: calc(var(--radius) - 4px);
+
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+
+    --color-chart-1: var(--chart-1);
+    --color-chart-2: var(--chart-2);
+    --color-chart-3: var(--chart-3);
+    --color-chart-4: var(--chart-4);
+    --color-chart-5: var(--chart-5);
+
+    --color-sidebar: var(--sidebar);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+    --background: oklch(0.985 0.002 247);
+    --foreground: oklch(0.145 0.005 247);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.145 0.005 247);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.145 0.005 247);
+    --primary: oklch(0.45 0.18 264);
+    --primary-foreground: oklch(0.985 0 0);
+    --secondary: oklch(0.96 0.005 264);
+    --secondary-foreground: oklch(0.25 0.02 264);
+    --muted: oklch(0.96 0.005 264);
+    --muted-foreground: oklch(0.556 0.01 264);
+    --accent: oklch(0.96 0.01 264);
+    --accent-foreground: oklch(0.25 0.02 264);
+    --destructive: oklch(0.577 0.245 27.325);
+    --destructive-foreground: oklch(0.577 0.245 27.325);
+    --border: oklch(0.915 0.005 264);
+    --input: oklch(0.915 0.005 264);
+    --ring: oklch(0.55 0.15 264);
+    --chart-1: oklch(0.55 0.2 264);
+    --chart-2: oklch(0.6 0.118 184.704);
+    --chart-3: oklch(0.398 0.07 227.392);
+    --chart-4: oklch(0.828 0.189 84.429);
+    --chart-5: oklch(0.769 0.188 70.08);
+    --radius: 0.625rem;
+    --sidebar: oklch(0.98 0.005 264);
+    --sidebar-foreground: oklch(0.2 0.02 264);
+    --sidebar-primary: oklch(0.45 0.18 264);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.94 0.015 264);
+    --sidebar-accent-foreground: oklch(0.25 0.03 264);
+    --sidebar-border: oklch(0.91 0.01 264);
+    --sidebar-ring: oklch(0.55 0.15 264);
+}
+
+.dark {
+    --background: oklch(0.13 0.01 264);
+    --foreground: oklch(0.985 0.005 264);
+    --card: oklch(0.16 0.015 264);
+    --card-foreground: oklch(0.985 0.005 264);
+    --popover: oklch(0.16 0.015 264);
+    --popover-foreground: oklch(0.985 0.005 264);
+    --primary: oklch(0.65 0.2 264);
+    --primary-foreground: oklch(0.13 0.01 264);
+    --secondary: oklch(0.24 0.02 264);
+    --secondary-foreground: oklch(0.985 0.005 264);
+    --muted: oklch(0.24 0.02 264);
+    --muted-foreground: oklch(0.65 0.015 264);
+    --accent: oklch(0.24 0.025 264);
+    --accent-foreground: oklch(0.985 0.005 264);
+    --destructive: oklch(0.396 0.141 25.723);
+    --destructive-foreground: oklch(0.637 0.237 25.331);
+    --border: oklch(0.26 0.02 264);
+    --input: oklch(0.26 0.02 264);
+    --ring: oklch(0.55 0.15 264);
+    --chart-1: oklch(0.6 0.2 264);
+    --chart-2: oklch(0.696 0.17 162.48);
+    --chart-3: oklch(0.769 0.188 70.08);
+    --chart-4: oklch(0.627 0.265 303.9);
+    --chart-5: oklch(0.645 0.246 16.439);
+    --sidebar: oklch(0.15 0.015 264);
+    --sidebar-foreground: oklch(0.985 0.005 264);
+    --sidebar-primary: oklch(0.65 0.2 264);
+    --sidebar-primary-foreground: oklch(0.985 0.005 264);
+    --sidebar-accent: oklch(0.22 0.025 264);
+    --sidebar-accent-foreground: oklch(0.985 0.005 264);
+    --sidebar-border: oklch(0.24 0.02 264);
+    --sidebar-ring: oklch(0.55 0.15 264);
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+
+    body {
+        @apply bg-background text-foreground;
+    }
+
+    /* Smooth scrollbar */
+    ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: oklch(0.7 0.01 264);
+        border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: oklch(0.6 0.02 264);
+    }
+
+    .dark ::-webkit-scrollbar-thumb {
+        background: oklch(0.35 0.02 264);
+    }
+
+    .dark ::-webkit-scrollbar-thumb:hover {
+        background: oklch(0.45 0.02 264);
+    }
+}
+
+/* ============================================================
+   Login Page – Split Screen Layout
+   ============================================================ */
+
+.auth-login-wrapper {
+    display: flex;
+    min-height: 100svh;
+    background-color: #f8f9fb;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    gap: 3rem;
+}
+
+/* ---------- Left panel ---------- */
+.auth-login-left {
+    flex: 1;
+    max-width: 520px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-login-illustration-card {
+    width: 100%;
+    background: #ffffff;
+    border: 1px solid #e8eaf0;
+    border-radius: 18px;
+    padding: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 16px 0 rgba(60, 80, 140, 0.07);
+    min-height: 380px;
+}
+
+.auth-login-illustration {
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+/* ---------- Right panel ---------- */
+.auth-login-right {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 340px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-login-form-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+/* ---------- Brand / Logo ---------- */
+.auth-login-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.25rem;
+}
+
+.auth-login-logo {
+    width: 68px;
+    height: 68px;
+    object-fit: contain;
+}
+
+.auth-login-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #1a1d2e;
+    letter-spacing: -0.01em;
+    text-align: center;
+    margin: 0;
+}
+
+/* ---------- Subtitle ---------- */
+.login-subtitle {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin: 0;
+    text-align: left;
+}
+
+/* ---------- Form ---------- */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.login-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.login-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+}
+
+/* ---------- Remember me ---------- */
+.login-remember {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.login-remember-label {
+    font-size: 0.85rem;
+    color: #4b5563;
+    cursor: pointer;
+}
+
+/* ---------- Sign in button ---------- */
+.login-btn {
+    width: 100%;
+    height: 2.5rem;
+    background: #3b4ad4 !important;
+    color: #fff !important;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: background 0.18s, box-shadow 0.18s;
+    margin-top: 0.25rem;
+}
+
+.login-btn:hover:not(:disabled) {
+    background: #2f3ab8 !important;
+    box-shadow: 0 4px 12px rgba(59, 74, 212, 0.35);
+}
+
+.login-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* ---------- Error box ---------- */
+.login-errors {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    font-size: 0.82rem;
+    color: #b91c1c;
+}
+
+.login-errors ul {
+    margin: 0;
+    padding-left: 1rem;
+}
+
+/* ---------- Status message ---------- */
+.login-status-message {
+    text-align: center;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #16a34a;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 6px;
+    padding: 0.5rem 0.75rem;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+    .auth-login-wrapper {
+        flex-direction: column;
+        padding: 1.5rem 1rem;
+        gap: 1.5rem;
+    }
+
+    .auth-login-left {
+        display: none;
+    }
+
+    .auth-login-right {
+        max-width: 100%;
+    }
+
+    .auth-login-form-container {
+        padding: 2rem 1.5rem;
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
+    }
+}

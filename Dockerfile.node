@@ -1,0 +1,27 @@
+# ============================================
+# Dockerfile.node — Vite Dev Server
+# Menggunakan Node.js 20 LTS Alpine
+# Root: /var/www (konsisten dengan Laravel/PHP container)
+# ============================================
+FROM node:20-alpine
+
+# Install di /var/www — sama dengan root Laravel
+WORKDIR /var/www
+
+# Salin manifest & install node_modules saat BUILD
+COPY package.json package-lock.json ./
+RUN npm install
+
+# Simpan backup node_modules di luar /var/www
+# agar tidak tertimpa saat volume mount di docker-compose
+RUN cp -r /var/www/node_modules /node_modules_cache
+RUN echo "[BUILD OK] node_modules di-cache ke /node_modules_cache"
+
+# Copy entrypoint script
+COPY docker/node/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+EXPOSE 5173
+
+# Entrypoint akan restore node_modules jika perlu, lalu jalankan vite
+ENTRYPOINT ["/entrypoint.sh"]

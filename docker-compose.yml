@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: logistiknew-app
+    container_name: logistiknew_app
+    restart: unless-stopped
+    working_dir: /var/www
+    command: php-fpm
+    volumes:
+      - ./:/var/www
+    networks:
+      - logistiknew_network
+    depends_on:
+      - db
+
+  vite:
+    build:
+      context: .
+      dockerfile: Dockerfile.node
+    container_name: logistiknew_vite
+    restart: unless-stopped
+    working_dir: /var/www
+    environment:
+      - SKIP_WAYFINDER=1  # Container ini Node.js-only, tidak ada PHP
+    volumes:
+      - ./:/var/www  # Mount seluruh project (sama dengan PHP container)
+      # node_modules diurus oleh entrypoint.sh (dicopy dari /node_modules_cache)
+    ports:
+      - "5173:5173"
+    networks:
+      - logistiknew_network
+    depends_on:
+      - app
+
+  web:
+    image: nginx:alpine
+    container_name: logistiknew_web
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+    networks:
+      - logistiknew_network
+    depends_on:
+      - app
+
+  db:
+    image: mysql:8.0
+    container_name: logistiknew_db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE:-logistiknew}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-root}
+    volumes:
+      - dbdata:/var/lib/mysql
+    ports:
+      - "3007:3306"
+    networks:
+      - logistiknew_network
+
+networks:
+  logistiknew_network:
+    driver: bridge
+
+volumes:
+  dbdata:
