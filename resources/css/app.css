@@ -142,6 +142,28 @@
         @apply bg-background text-foreground;
     }
 
+    /* Pastikan teks input selalu kontras (hindari putih di light mode / autofill) */
+    input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='file']),
+    textarea,
+    select {
+        color: var(--foreground);
+        background-color: var(--background);
+        color-scheme: inherit;
+    }
+
+    /* Chrome/Edge autofill: teks putih di background terang (sering di browser utama) */
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active,
+    textarea:-webkit-autofill,
+    select:-webkit-autofill {
+        -webkit-text-fill-color: var(--foreground) !important;
+        caret-color: var(--foreground);
+        box-shadow: 0 0 0 1000px var(--background) inset !important;
+        transition: background-color 99999s ease-out 0s;
+    }
+
     /* Smooth scrollbar */
     ::-webkit-scrollbar {
         width: 6px;
@@ -182,6 +204,9 @@
     justify-content: center;
     padding: 2rem;
     gap: 3rem;
+    /* Halaman login selalu light — cegah autofill teks putih dari color-scheme dark */
+    color-scheme: light;
+    color: #1a1d2e;
 }
 
 /* ---------- Left panel ---------- */
@@ -280,6 +305,31 @@
     font-size: 0.875rem;
     font-weight: 500;
     color: #374151;
+}
+
+/* ---------- Input login (teks selalu gelap & terbaca) ---------- */
+.login-input {
+    background-color: #f3f4f6 !important;
+    color: #111827 !important;
+    -webkit-text-fill-color: #111827 !important;
+    caret-color: #111827;
+    border-color: #d1d5db !important;
+}
+
+.login-input::placeholder {
+    color: #9ca3af !important;
+    -webkit-text-fill-color: #9ca3af !important;
+    opacity: 1;
+}
+
+.login-input:-webkit-autofill,
+.login-input:-webkit-autofill:hover,
+.login-input:-webkit-autofill:focus,
+.login-input:-webkit-autofill:active {
+    -webkit-text-fill-color: #111827 !important;
+    caret-color: #111827;
+    box-shadow: 0 0 0 1000px #f3f4f6 inset !important;
+    border-color: #d1d5db !important;
 }
 
 /* ---------- Remember me ---------- */

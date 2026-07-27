@@ -676,7 +676,7 @@ export default function BarangKeluarIndex() {
                             setEditData(null);
                             setFormOpen(true);
                         }}
-                        className="mt-3 sm:mt-0 gap-2 self-start sm:self-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white"
+                        className="mt-3 sm:mt-0 gap-2 self-start sm:self-auto bg-[#16a34a] hover:bg-[#15803d] text-white"
                     >
                         <Plus className="h-4 w-4" />
                         Tambah
