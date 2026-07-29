@@ -428,7 +428,8 @@ Lalu restart Vite:
 npm run dev
 ```
 
-> Import 2FA & Passkeys diganti stub di `resources/js/stubs/` karena fitur tersebut dimatikan di `config/fortify.php`.
+> Import fitur Fortify yang dimatikan (2FA, Passkeys, email verification, reset password)
+> diganti stub di `resources/js/stubs/` agar `npm run build` tidak error setelah clone.
 
 ### Halaman putih / 500 setelah deploy
 
