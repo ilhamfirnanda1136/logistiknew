@@ -379,9 +379,42 @@ npm run types:check
 
 ## 6. Troubleshooting
 
-### Error `Failed to resolve import "@/routes/..."` / `@/routes/two-factor`
+### Error `Vite manifest not found` (`public/build/manifest.json`)
 
-Folder route Wayfinder di-gitignore. Setelah `git clone`, generate dulu:
+Artinya asset frontend belum di-build / Vite belum jalan. Pilih salah satu:
+
+**Development** (Vite hot reload — biarkan terminal tetap jalan):
+
+```bash
+php artisan wayfinder:generate --with-form
+npm install
+npm run dev
+```
+
+Lalu di terminal lain:
+
+```bash
+php artisan serve
+```
+
+**Production / tanpa Vite watch:**
+
+```bash
+php artisan wayfinder:generate --with-form
+npm install
+npm run build
+php artisan serve
+```
+
+Pastikan file `public/build/manifest.json` ada setelah `npm run build`, atau file `public/hot` ada saat `npm run dev`.
+
+### Error `register is not a function` di welcome
+
+Registrasi publik dimatikan di Fortify. Tombol Register di welcome sudah dihapus — pull update terbaru.
+
+### Error `Failed to resolve import "@/routes/..."` / `@/actions/Laravel/Passkeys/...`
+
+Folder route/action Wayfinder di-gitignore. Setelah `git clone`, generate dulu:
 
 ```bash
 php artisan wayfinder:generate --with-form
@@ -395,7 +428,7 @@ Lalu restart Vite:
 npm run dev
 ```
 
-> Import `@/routes/two-factor` diganti stub di `resources/js/stubs/` karena fitur 2FA Fortify sedang dimatikan di project ini.
+> Import 2FA & Passkeys diganti stub di `resources/js/stubs/` karena fitur tersebut dimatikan di `config/fortify.php`.
 
 ### Halaman putih / 500 setelah deploy
 
