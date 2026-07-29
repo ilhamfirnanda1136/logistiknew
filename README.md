@@ -106,7 +106,17 @@ php artisan migrate --force
 php artisan db:seed --force
 ```
 
-### Langkah 6 — Permission (Linux / VPS)
+### Langkah 7 — Generate Wayfinder routes (wajib setelah clone)
+
+Folder `resources/js/routes`, `resources/js/actions`, dan `resources/js/wayfinder` **tidak ikut Git** (di-generate otomatis). Setelah clone, jalankan:
+
+```bash
+php artisan wayfinder:generate --with-form
+```
+
+Tanpa langkah ini, `npm run dev` bisa error: `Failed to resolve import "@/routes/..."`.
+
+### Langkah 8 — Permission (Linux / VPS)
 
 ```bash
 chmod -R 775 storage bootstrap/cache
@@ -115,7 +125,7 @@ chown -R www-data:www-data storage bootstrap/cache
 
 Sesuaikan user `www-data` dengan user web server Anda.
 
-### Langkah 7 — Frontend
+### Langkah 9 — Frontend
 
 ```bash
 npm install
@@ -134,7 +144,7 @@ npm run dev
 npm run build
 ```
 
-### Langkah 8 — Jalankan aplikasi
+### Langkah 10 — Jalankan aplikasi
 
 **Opsi A — PHP built-in server (lokal):**
 
@@ -265,14 +275,22 @@ docker compose exec app php artisan migrate --force
 docker compose exec app php artisan db:seed --force
 ```
 
-### Langkah 7 — Permission storage
+### Langkah 7 — Generate Wayfinder routes
+
+```bash
+docker compose exec app php artisan wayfinder:generate --with-form
+```
+
+> Service `vite` memakai `SKIP_WAYFINDER=1` (tanpa PHP). Generate harus dijalankan di container `app` sebelum / bersamaan dengan `npm run dev`.
+
+### Langkah 8 — Permission storage
 
 ```bash
 docker compose exec app chown -R www-data:www-data storage bootstrap/cache
 docker compose exec app chmod -R 775 storage bootstrap/cache
 ```
 
-### Langkah 8 — Akses aplikasi
+### Langkah 9 — Akses aplikasi
 
 | Layanan        | URL |
 |----------------|-----|
@@ -360,6 +378,24 @@ npm run types:check
 ---
 
 ## 6. Troubleshooting
+
+### Error `Failed to resolve import "@/routes/..."` / `@/routes/two-factor`
+
+Folder route Wayfinder di-gitignore. Setelah `git clone`, generate dulu:
+
+```bash
+php artisan wayfinder:generate --with-form
+# Docker:
+docker compose exec app php artisan wayfinder:generate --with-form
+```
+
+Lalu restart Vite:
+
+```bash
+npm run dev
+```
+
+> Import `@/routes/two-factor` diganti stub di `resources/js/stubs/` karena fitur 2FA Fortify sedang dimatikan di project ini.
 
 ### Halaman putih / 500 setelah deploy
 
